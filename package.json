@@ -1,5 +1,5 @@
 {
-  "name": "gamecarddelivary",
+  "name": "cdkeyvast",
   "private": true,
   "version": "0.1.0",
   "scripts": {
@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "engines": {
+  "node": "22.x"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
