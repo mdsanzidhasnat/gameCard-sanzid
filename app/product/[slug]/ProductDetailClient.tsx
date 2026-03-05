@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ShoppingCart, Star, Shield, Zap, Tag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
-import { useCurrency } from "@/contexts/CurrencyContext";
+import { useCurrency } from "@/hooks/useCurrency";
 import { Product } from "@/types/woocommerce";
 import { SanitizedHTML } from "@/components/SanitizedHTML";
 

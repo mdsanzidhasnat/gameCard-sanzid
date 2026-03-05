@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 import Container from "@/components/ui/container";
+import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { 
   gameCardsItems, 
   giftCardsItems, 
@@ -79,22 +80,25 @@ export default function Header() {
           />
         </nav>
 
-        {/* Cart */}
-        <div className="bg-[#8B0000] h-full flex items-center absolute right-0 top-0 px-4">
-          <Link href="/checkout" className="flex flex-col items-center text-white">
-            <span className="text-[13px]">{itemCount}</span>
+        {/* Currency Switcher and Cart */}
+        <div className="bg-[#8B0000] h-full flex items-center absolute right-0 top-0">
+          <CurrencySwitcher />
+          <div className="px-4">
+            <Link href="/checkout" className="flex flex-col items-center text-white">
+              <span className="text-[13px]">{itemCount}</span>
 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className="w-[20px] h-[20px]" fill="white">
-              <path d="M528.12 301.319l47.273-208C578.529 77.878 
-              565.965 64 550.059 64H130.94l-9.223-41.016C119.883 
-              10.502 109.847 0 97.254 0H24C10.745 0 0 10.745 0 
-              24s10.745 24 24 24h53.201l70.949 315.586C134.298 
-              386.012 121.92 400 105.102 400H24c-13.255 0-24 
-              10.745-24 24s10.745 24 24 24h81.102c43.462 
-              0 80.08-30.703 90.325-71.586l326.471-29.036c11.69-1.04 
-              21.39-9.098 24.222-20.059z"/>
-            </svg>
-          </Link>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className="w-[20px] h-[20px]" fill="white">
+                <path d="M528.12 301.319l47.273-208C578.529 77.878 
+                565.965 64 550.059 64H130.94l-9.223-41.016C119.883 
+                10.502 109.847 0 97.254 0H24C10.745 0 0 10.745 0 
+                24s10.745 24 24 24h53.201l70.949 315.586C134.298 
+                386.012 121.92 400 105.102 400H24c-13.255 0-24 
+                10.745-24 24s10.745 24 24 24h81.102c43.462 
+                0 80.08-30.703 90.325-71.586l326.471-29.036c11.69-1.04 
+                21.39-9.098 24.222-20.059z"/>
+              </svg>
+            </Link>
+          </div>
         </div>
 
       </Container>

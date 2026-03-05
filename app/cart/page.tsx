@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, X, ArrowLeft, ShoppingBag, Tag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
-import { useCurrency } from "@/contexts/CurrencyContext";
+import { useCurrency } from "@/hooks/useCurrency";
 
 export default function CartPage() {
   const { items, total, removeItem, updateQuantity, clearCart } = useCart();

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Star } from "lucide-react";
 import Link from "next/link";
-import { useCurrency } from "@/contexts/CurrencyContext";
+import { useCurrency } from "@/hooks/useCurrency";
 
 interface ProductCardProps {
   title: string;

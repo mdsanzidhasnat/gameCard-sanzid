@@ -2,7 +2,7 @@
 
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
-import { useCurrency } from "@/contexts/CurrencyContext";
+import { useCurrency } from "@/hooks/useCurrency";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -29,7 +29,8 @@ const CartDrawer = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 250 }}
-            className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-border bg-card shadow-2xl"
+            className="fixed right-0 top-16 z-50 flex w-full max-w-md flex-col border-l border-border bg-card shadow-2xl"
+            style={{ height: "calc(100vh - 64px)" }}
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-border p-4">
@@ -72,36 +73,48 @@ const CartDrawer = () => {
                         alt={product.name}
                         className="h-20 w-16 rounded object-cover"
                       />
+
                       <div className="flex flex-1 flex-col justify-between">
                         <div>
                           <h3 className="line-clamp-1 text-sm font-semibold text-foreground">
                             {product.name}
                           </h3>
-                          <p className="text-xs text-muted-foreground">{product.platform}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {product.platform}
+                          </p>
                         </div>
+
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <button
-                              onClick={() => updateQuantity(product.id, quantity - 1)}
+                              onClick={() =>
+                                updateQuantity(product.id, quantity - 1)
+                              }
                               className="rounded border border-border p-0.5 text-muted-foreground hover:border-primary hover:text-primary"
                             >
                               <Minus size={14} />
                             </button>
+
                             <span className="min-w-[1.5rem] text-center text-sm font-medium text-foreground">
                               {quantity}
                             </span>
+
                             <button
-                              onClick={() => updateQuantity(product.id, quantity + 1)}
+                              onClick={() =>
+                                updateQuantity(product.id, quantity + 1)
+                              }
                               className="rounded border border-border p-0.5 text-muted-foreground hover:border-primary hover:text-primary"
                             >
                               <Plus size={14} />
                             </button>
                           </div>
+
                           <span className="font-display text-sm font-bold text-price-green">
                             {formatPrice(product.price * quantity)}
                           </span>
                         </div>
                       </div>
+
                       <button
                         onClick={() => removeItem(product.id)}
                         className="self-start text-muted-foreground hover:text-destructive"
@@ -123,6 +136,7 @@ const CartDrawer = () => {
                     {formatPrice(total)}
                   </span>
                 </div>
+
                 <div className="flex flex-col gap-2">
                   <Link
                     href="/checkout"
@@ -131,6 +145,7 @@ const CartDrawer = () => {
                   >
                     Proceed to Checkout
                   </Link>
+
                   <Link
                     href="/cart"
                     onClick={() => setIsOpen(false)}

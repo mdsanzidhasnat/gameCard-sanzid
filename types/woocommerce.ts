@@ -12,6 +12,24 @@ export interface ProductCategory {
   count?: number;
 }
 
+/**
+ * Enhanced category for UI rendering with metadata.
+ * Extends ProductCategory with optional display properties (icon, subcategories).
+ * Used in components like ProductsClient for rendering with custom styling.
+ */
+export interface CategoryWithMetadata extends ProductCategory {
+  icon?: string; // Emoji or icon identifier
+  subcategories?: NavItem[];
+}
+
+/**
+ * Navigation item (used in category subcategories and menus).
+ */
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -67,6 +85,7 @@ export interface OrderLineItem {
 export interface CreateOrderPayload {
   billing: BillingAddress;
   line_items: OrderLineItem[];
+  coupon_lines?: Array<{ code: string }>;  // Optional coupon lines for order
   payment_method: string;
   payment_method_title: string;
 }
@@ -101,4 +120,51 @@ export interface RegisterData {
   last_name: string;
   username: string;
   password: string;
+}
+// Coupon Types
+export interface Coupon {
+  id: number;
+  code: string;
+  discount_type: "percent" | "fixed_cart" | "fixed_product";
+  amount: string;
+  description?: string;
+  date_expires?: string | null;
+  usage_limit?: number | null;
+  usage_limit_per_user?: number | null;
+  used_by?: string[];
+  usage_count: number;
+  enable_free_shipping: boolean;
+  exclude_sale_items: boolean;
+  minimum_amount?: string;
+  maximum_amount?: string;
+  product_ids?: number[];
+  excluded_product_ids?: number[];
+  product_categories?: number[];
+  excluded_product_categories?: number[];
+  status?: "publish" | "draft";
+}
+
+export interface ApplyCouponPayload {
+  coupon_code: string;
+  cart_items: CartItem[];
+  cart_total: number;
+}
+
+export interface CouponValidationResult {
+  valid: boolean;
+  coupon?: Coupon;
+  discount_amount?: number;
+  discount_percentage?: number;
+  error_message?: string;
+  reason?: "expired" | "usage_limit" | "minimum_amount" | "not_found" | "invalid" | "other";
+}
+
+export interface ApplyCouponResponse {
+  success: boolean;
+  coupon_code: string;
+  discount_amount: number;
+  discount_type: "percent" | "fixed_cart" | "fixed_product";
+  new_total: number;
+  message?: string;
+  error?: string;
 }
