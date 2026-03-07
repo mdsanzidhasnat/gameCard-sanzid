@@ -8,6 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Loader2 } from "lucide-react";
 
@@ -22,6 +23,7 @@ export function CurrencySwitcher() {
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+      
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
@@ -31,28 +33,36 @@ export function CurrencySwitcher() {
           {isLoading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
-            <span className="font-medium">{currency.symbol} {currency.code}</span>
+            <span className="font-medium">
+              {currency.symbol} {currency.code}
+            </span>
           )}
+
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="w-48 bg-[#8B0000] border-[#ddd] text-white"
-      >
-        {currencies.map((curr) => (
-          <DropdownMenuItem
-            key={curr.code}
-            onClick={() => handleCurrencyChange(curr.code)}
-            className="cursor-pointer hover:bg-[#a30000] focus:bg-[#a30000]"
-          >
-            <span className="flex items-center gap-2">
-              <span className="font-medium">{curr.symbol}</span>
-              <span>{curr.name} ({curr.code})</span>
-            </span>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
+
+      <DropdownMenuPortal>
+        <DropdownMenuContent
+          align="end"
+          sideOffset={8}
+          className="w-48 bg-[#8B0000] border-[#ddd] text-white z-[9999]"
+        >
+          {currencies.map((curr) => (
+            <DropdownMenuItem
+              key={curr.code}
+              onClick={() => handleCurrencyChange(curr.code)}
+              className="cursor-pointer hover:bg-[#a30000] focus:bg-[#a30000]"
+            >
+              <span className="flex items-center gap-2">
+                <span className="font-medium">{curr.symbol}</span>
+                <span>{curr.name} ({curr.code})</span>
+              </span>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
+
     </DropdownMenu>
   );
 }
